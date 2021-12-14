@@ -10,6 +10,12 @@ public class GameManager : MonoBehaviour
     public GameObject playButton;
     public GameObject gameOver;
     private int score;
+
+
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip fly, deal, scor;
     private void Awake()
     {
         Application.targetFrameRate = 60;
@@ -32,19 +38,24 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
+        
         gameOver.SetActive(true);
         playButton.SetActive(true);
         Pause();
+        audioSource.PlayOneShot(deal);
     }
     public void Pause()
     {
+        
         Time.timeScale = 0f;
         player.enabled = false;
     }
     
     public void IncreaseScore()
     {
+        audioSource.PlayOneShot(scor);
         score++;
         scoreText.text = score.ToString();
+       
     }
 }

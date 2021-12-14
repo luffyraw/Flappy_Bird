@@ -12,6 +12,10 @@ public class Player : MonoBehaviour
     public float VelocityPerJump = 3f;
     public float RotateUpSpeed = 1, RotateDownSpeed = 1;
 
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip fly, deal, scor;
 
     FlappyYAxisTravelState flappyYAxisTravelState;
 
@@ -39,10 +43,12 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-       
+        
         if (Input.GetMouseButtonDown(0))
         {
             Bird.velocity = new Vector2(0, VelocityPerJump);
+            audioSource.PlayOneShot(fly);
+            
         }
         
 
