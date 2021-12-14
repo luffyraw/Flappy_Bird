@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
     [SerializeField]
-    private AudioClip fly, deal, scor;
+    private AudioClip fly;
 
     FlappyYAxisTravelState flappyYAxisTravelState;
 
