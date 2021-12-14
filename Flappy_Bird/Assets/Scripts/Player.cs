@@ -58,6 +58,7 @@ public class Player : MonoBehaviour
             if (touch.phase == TouchPhase.Began)
             {
                 Bird.velocity = new Vector2(0, VelocityPerJump);
+                audioSource.PlayOneShot(fly);
             }
         }
 
