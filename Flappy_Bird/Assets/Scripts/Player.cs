@@ -6,8 +6,34 @@ public class Player : MonoBehaviour
 {
     private Rigidbody2D Bird;
     private SpriteRenderer spriteRenderer;
-    public Sprite[] sprites;
-    private int spriteIndex;
+    //public Sprite[] sprites;
+    //private int spriteIndex;
+
+    public SpriteRenderer sr;
+    public List<Sprite> skins = new List<Sprite>();
+    private int selectedSkins = 0;
+    public GameObject playerskin;
+
+    public void NextOption()
+    {
+        selectedSkins = selectedSkins + 1;
+        if (selectedSkins == skins.Count)
+        {
+            selectedSkins = 0;
+
+        }
+        sr.sprite = skins[selectedSkins];
+    }
+    public void BackOption()
+    {
+        selectedSkins = selectedSkins - 1;
+        if (selectedSkins < 0)
+        {
+            selectedSkins = skins.Count - 1;
+
+        }
+        sr.sprite = skins[selectedSkins];
+    }
 
     public float VelocityPerJump = 3f;
     public float RotateUpSpeed = 1, RotateDownSpeed = 1;
@@ -39,7 +65,7 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
-        InvokeRepeating(nameof(AnimateSprite), 0.15f, 0.15f);
+        //InvokeRepeating(nameof(AnimateSprite), 0.15f, 0.15f);
     }
     private void Update()
     {
@@ -67,15 +93,15 @@ public class Player : MonoBehaviour
     {
         FixFlappyRotation();
     }
-    private void AnimateSprite()
-    {
-        spriteIndex++;
-        if(spriteIndex >= sprites.Length)
-        {
-            spriteIndex = 0;
-        }
-        spriteRenderer.sprite = sprites[spriteIndex];
-    }
+    //private void AnimateSprite()
+    //{
+    //    spriteIndex++;
+    //    if(spriteIndex >= sprites.Length)
+    //    {
+    //        spriteIndex = 0;
+    //    }
+    //    spriteRenderer.sprite = sprites[spriteIndex];
+    //}
 
     private void FixFlappyRotation()
     {

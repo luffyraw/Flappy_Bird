@@ -11,6 +11,12 @@ public class GameManager : MonoBehaviour
     public GameObject gameOver;
     private int score;
 
+    public GameObject flappybird;
+    public GameObject nextOption;
+    public GameObject backOption;
+    public GameObject _getready;
+    
+   
 
     [SerializeField]
     private AudioSource audioSource;
@@ -28,6 +34,11 @@ public class GameManager : MonoBehaviour
         scoreText.text = score.ToString();
         playButton.SetActive(false);
         gameOver.SetActive(false);
+        _getready.SetActive(false);
+        
+        nextOption.SetActive(false);
+        backOption.SetActive(false);
+        flappybird.SetActive(false);
         Time.timeScale = 1f;
         player.enabled = true;
         Pipes[] pipes = FindObjectsOfType<Pipes>();
