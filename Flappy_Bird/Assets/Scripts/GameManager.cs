@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject playButton;
     public GameObject gameOver;
     private int score;
-
+    public GameObject Score;
     public GameObject flappybird;
     public GameObject nextOption;
     public GameObject backOption;
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
     [SerializeField]
-    private AudioClip fly, deal, scor;
+    private AudioClip deal, scor;
     private void Awake()
     {
         Application.targetFrameRate = 60;
@@ -30,10 +30,12 @@ public class GameManager : MonoBehaviour
     }
     public void Play()
     {
+        Score.SetActive(true);
         score = 0;
         scoreText.text = score.ToString();
         playButton.SetActive(false);
         gameOver.SetActive(false);
+
         _getready.SetActive(false);
         
         nextOption.SetActive(false);

@@ -6,34 +6,14 @@ public class Player : MonoBehaviour
 {
     private Rigidbody2D Bird;
     private SpriteRenderer spriteRenderer;
-    //public Sprite[] sprites;
-    //private int spriteIndex;
+    public Sprite[] StartSprite;
+    public Sprite[] sprites;
+    public static int spriteIndex;
 
-    public SpriteRenderer sr;
-    public List<Sprite> skins = new List<Sprite>();
-    private int selectedSkins = 0;
+    //public SpriteRenderer sr;
+    //public List<Sprite> skins = new List<Sprite>();
+    private static int selectedSkins = 0;
     public GameObject playerskin;
-
-    public void NextOption()
-    {
-        selectedSkins = selectedSkins + 1;
-        if (selectedSkins == skins.Count)
-        {
-            selectedSkins = 0;
-
-        }
-        sr.sprite = skins[selectedSkins];
-    }
-    public void BackOption()
-    {
-        selectedSkins = selectedSkins - 1;
-        if (selectedSkins < 0)
-        {
-            selectedSkins = skins.Count - 1;
-
-        }
-        sr.sprite = skins[selectedSkins];
-    }
 
     public float VelocityPerJump = 3f;
     public float RotateUpSpeed = 1, RotateDownSpeed = 1;
@@ -41,7 +21,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
     [SerializeField]
-    private AudioClip fly, deal, scor;
+    private AudioClip fly;
 
     FlappyYAxisTravelState flappyYAxisTravelState;
 
@@ -56,6 +36,8 @@ public class Player : MonoBehaviour
     {
         Bird = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        
+
     }
     private void OnEnable()
     {
@@ -65,8 +47,52 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
-        //InvokeRepeating(nameof(AnimateSprite), 0.15f, 0.15f);
+        spriteRenderer.sprite = StartSprite[selectedSkins];
+        if (selectedSkins == 0)
+        {
+            spriteIndex = 1; 
+        }
+        else if (selectedSkins == 1)
+        {
+            spriteIndex = 4;
+            
+        }
+        else if (selectedSkins == 2)
+        {
+            spriteIndex = 7;
+           
+        }
+        else
+        {
+            spriteIndex = 10;
+           
+        }
+        InvokeRepeating(nameof(AnimateSprite), 0.15f, 0.15f);
     }
+
+    public void NextOption()
+    {
+        selectedSkins++;
+        if (selectedSkins == StartSprite.Length)
+        {
+            selectedSkins = 0;
+
+        }
+        spriteRenderer.sprite = StartSprite[selectedSkins];
+        
+    }
+    public void BackOption()
+    {
+        selectedSkins--;
+        if (selectedSkins < 0)
+        {
+            selectedSkins = StartSprite.Length - 1;
+        }
+
+        spriteRenderer.sprite = StartSprite[selectedSkins];
+    }
+
+
     private void Update()
     {
         
@@ -93,15 +119,47 @@ public class Player : MonoBehaviour
     {
         FixFlappyRotation();
     }
-    //private void AnimateSprite()
-    //{
-    //    spriteIndex++;
-    //    if(spriteIndex >= sprites.Length)
-    //    {
-    //        spriteIndex = 0;
-    //    }
-    //    spriteRenderer.sprite = sprites[spriteIndex];
-    //}
+    private void AnimateSprite()
+    {
+        
+
+        if (selectedSkins == 0)
+        {
+            spriteIndex++;
+            if (spriteIndex >= 2)
+            {
+                spriteIndex = 0;
+            }
+            spriteRenderer.sprite = sprites[spriteIndex];
+        }
+        else if (selectedSkins == 1)
+        {
+            spriteIndex++;
+            if (spriteIndex >= 5)
+            {
+                spriteIndex = 3;
+            }
+            spriteRenderer.sprite = sprites[spriteIndex];
+        }
+        else if (selectedSkins == 2)
+        {
+            spriteIndex++;
+            if (spriteIndex >= 8)
+            {
+                spriteIndex = 6;
+            }
+            spriteRenderer.sprite = sprites[spriteIndex];
+        }
+        else
+        {
+            spriteIndex++;
+            if (spriteIndex >= 11)
+            {
+                spriteIndex = 9;
+            }
+            spriteRenderer.sprite = sprites[spriteIndex];
+        }
+    }
 
     private void FixFlappyRotation()
     {
