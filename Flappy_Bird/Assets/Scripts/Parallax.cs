@@ -12,6 +12,6 @@ public class Parallax : MonoBehaviour
     }
     private void Update()
     {
-        meshRenderer.material.mainTextureOffset += new Vector2(animationSpeed * Time.deltaTime, 0);
+            meshRenderer.material.mainTextureOffset += new Vector2(animationSpeed * Time.deltaTime, 0);
     }
 }

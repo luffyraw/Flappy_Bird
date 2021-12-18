@@ -10,8 +10,7 @@ public class Player : MonoBehaviour
     public Sprite[] sprites;
     public static int spriteIndex;
 
-    //public SpriteRenderer sr;
-    //public List<Sprite> skins = new List<Sprite>();
+ 
     private static int selectedSkins = 0;
     public GameObject playerskin;
 
@@ -189,12 +188,16 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Obstacle")
-        {
-            FindObjectOfType<GameManager>().GameOver();
-        } else if(other.gameObject.tag == "Scoring")
+        if(other.gameObject.tag == "Scoring")
         {
             FindObjectOfType<GameManager>().IncreaseScore();
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Obstacle")
+        {
+            FindObjectOfType<GameManager>().GameOver();
         }
     }
 }

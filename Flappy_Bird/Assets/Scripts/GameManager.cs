@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
         Score.SetActive(true);
         score = 0;
         scoreText.text = score.ToString();
+
         playButton.SetActive(false);
         gameOver.SetActive(false);
 
@@ -41,8 +42,10 @@ public class GameManager : MonoBehaviour
         nextOption.SetActive(false);
         backOption.SetActive(false);
         flappybird.SetActive(false);
+
         Time.timeScale = 1f;
         player.enabled = true;
+
         Pipes[] pipes = FindObjectsOfType<Pipes>();
         for(int i = 0; i < pipes.Length; i++)
         {
@@ -59,7 +62,6 @@ public class GameManager : MonoBehaviour
     }
     public void Pause()
     {
-        
         Time.timeScale = 0f;
         player.enabled = false;
     }
