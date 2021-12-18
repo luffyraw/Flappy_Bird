@@ -16,6 +16,7 @@ public class Spawner : MonoBehaviour
     {
 
     }
+  
     private void Spawn()
     {
         GameObject pipes = Instantiate(prefab, transform.position, Quaternion.identity);

@@ -2,21 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public Player player;
     public Text scoreText;
     public GameObject playButton;
     public GameObject gameOver;
+    public GameObject restart;
     private int score;
     public GameObject Score;
     public GameObject flappybird;
     public GameObject nextOption;
     public GameObject backOption;
-    public GameObject _getready;
-    
-   
+    public GameObject _readyImg;
+    public GameObject _getImg;
+
+
 
     [SerializeField]
     private AudioSource audioSource;
@@ -36,9 +38,10 @@ public class GameManager : MonoBehaviour
 
         playButton.SetActive(false);
         gameOver.SetActive(false);
+        restart.SetActive(false);
 
-        _getready.SetActive(false);
-        
+        _readyImg.SetActive(false);
+        _getImg.SetActive(false);
         nextOption.SetActive(false);
         backOption.SetActive(false);
         flappybird.SetActive(false);
@@ -56,16 +59,23 @@ public class GameManager : MonoBehaviour
     {
         
         gameOver.SetActive(true);
-        playButton.SetActive(true);
-        Pause();
-        audioSource.PlayOneShot(deal);
+        restart.SetActive(true);
+        //Pause();2
+        if(Player.instance.countAudioDie == 1)
+        {
+            audioSource.PlayOneShot(deal);
+        }
+    }
+    public void ReStart()
+    {
+        SceneManager.LoadScene(0);
     }
     public void Pause()
     {
         Time.timeScale = 0f;
         player.enabled = false;
     }
-    
+
     public void IncreaseScore()
     {
         audioSource.PlayOneShot(scor);

@@ -31,12 +31,26 @@ public class Player : MonoBehaviour
     
     Vector3 birdRotation = Vector3.zero;
 
+    public float flag = 0;
+    public static Player instance;
+    private GameObject spawner;
+    public int countAudioDie = 0;
+
     private void Awake()
     {
         Bird = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        
 
+        MakeInstance();
+        spawner = GameObject.Find("Spawner");
+    }
+
+    void MakeInstance()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
     }
     private void OnEnable()
     {
@@ -95,21 +109,24 @@ public class Player : MonoBehaviour
     private void Update()
     {
         
-        if (Input.GetMouseButtonDown(0))
+        if(Player.instance.flag == 0)
         {
-            Bird.velocity = new Vector2(0, VelocityPerJump);
-            audioSource.PlayOneShot(fly);
-            
-        }
-        
-
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began)
+            if (Input.GetMouseButtonDown(0))
             {
                 Bird.velocity = new Vector2(0, VelocityPerJump);
                 audioSource.PlayOneShot(fly);
+
+            }
+
+
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+                if (touch.phase == TouchPhase.Began)
+                {
+                    Bird.velocity = new Vector2(0, VelocityPerJump);
+                    audioSource.PlayOneShot(fly);
+                }
             }
         }
 
@@ -188,7 +205,15 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Scoring")
+        if (other.gameObject.tag == "Pipe")
+        {
+            countAudioDie++;
+            flag = 1;
+            Destroy(spawner);
+            FindObjectOfType<GameManager>().GameOver();
+            
+        }
+        if (other.gameObject.tag == "Scoring")
         {
             FindObjectOfType<GameManager>().IncreaseScore();
         }
@@ -197,7 +222,11 @@ public class Player : MonoBehaviour
     {
         if(collision.gameObject.tag == "Obstacle")
         {
+            countAudioDie++;
+            flag = 1;
+            Destroy(spawner);
             FindObjectOfType<GameManager>().GameOver();
+            
         }
     }
 }

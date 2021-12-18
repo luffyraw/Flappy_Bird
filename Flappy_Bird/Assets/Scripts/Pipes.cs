@@ -13,7 +13,15 @@ public class Pipes : MonoBehaviour
     }
     private void Update()
     {
-       
+        if(Player.instance != null)
+        {
+            if (Player.instance.flag == 1)
+            {
+                Destroy(GetComponent<Pipes>());
+            }
+        }
+        
+        
         transform.position += Vector3.left * speed * Time.deltaTime;
         if(transform.position.x < leftEdge)
         {

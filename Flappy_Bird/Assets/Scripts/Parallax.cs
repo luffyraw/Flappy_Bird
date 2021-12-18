@@ -12,6 +12,13 @@ public class Parallax : MonoBehaviour
     }
     private void Update()
     {
-            meshRenderer.material.mainTextureOffset += new Vector2(animationSpeed * Time.deltaTime, 0);
+        if (Player.instance != null)
+        {
+            if (Player.instance.flag == 1)
+            {
+                Destroy(GetComponent<Parallax>());
+            }
+        }
+        meshRenderer.material.mainTextureOffset += new Vector2(animationSpeed * Time.deltaTime, 0);
     }
 }
