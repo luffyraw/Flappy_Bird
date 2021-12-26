@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public static int spriteIndex;
 
  
-    private static int selectedSkins = 0;
+    public int selectedSkins = 0;
     public GameObject playerskin;
 
     public float VelocityPerJump = 3f;
